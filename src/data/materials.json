@@ -1,0 +1,254 @@
+[
+  {
+    "id": "bone",
+    "toolboxId": "0b0399",
+    "name": "Bone",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "cloth",
+    "toolboxId": "0b039d",
+    "name": "Bolt of Cloth",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "dust",
+    "toolboxId": "0b03a1",
+    "name": "Pile of Glittering Dust",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "feather",
+    "toolboxId": "0b03a5",
+    "name": "Feather",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "plant-fiber",
+    "toolboxId": "0b03a6",
+    "name": "Plant Fiber",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "tanned-hide",
+    "toolboxId": "0b03ac",
+    "name": "Tanned Hide Square",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "wood",
+    "toolboxId": "0b03b2",
+    "name": "Wood Plank",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "iron",
+    "toolboxId": "0b03b4",
+    "name": "Iron Ingot",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "scale",
+    "toolboxId": "0b03b9",
+    "name": "Scale",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "chitin",
+    "toolboxId": "0b03ba",
+    "name": "Chitin Fragment",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "granite",
+    "toolboxId": "0b03bb",
+    "name": "Granite Slab",
+    "group": "common",
+    "lotSize": 10
+  },
+  {
+    "id": "charcoal",
+    "toolboxId": "0b039a",
+    "name": "Lump of Charcoal",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "monstrous-claw",
+    "toolboxId": "0b039b",
+    "name": "Monstrous Claw",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "linen",
+    "toolboxId": "0b039e",
+    "name": "Bolt of Linen",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "damask",
+    "toolboxId": "0b039f",
+    "name": "Bolt of Damask",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "silk",
+    "toolboxId": "0b03a0",
+    "name": "Bolt of Silk",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "ectoplasm",
+    "toolboxId": "0b03a2",
+    "name": "Glob of Ectoplasm",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "monstrous-eye",
+    "toolboxId": "0b03a3",
+    "name": "Monstrous Eye",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "monstrous-fang",
+    "toolboxId": "0b03a4",
+    "name": "Monstrous Fang",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "diamond",
+    "toolboxId": "0b03a7",
+    "name": "Diamond",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "onyx",
+    "toolboxId": "0b03a8",
+    "name": "Onyx Gemstone",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "ruby",
+    "toolboxId": "0b03a9",
+    "name": "Ruby",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "sapphire",
+    "toolboxId": "0b03aa",
+    "name": "Sapphire",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "glass",
+    "toolboxId": "0b03ab",
+    "name": "Tempered Glass Vial",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "fur",
+    "toolboxId": "0b03ad",
+    "name": "Fur Square",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "leather",
+    "toolboxId": "0b03ae",
+    "name": "Leather Square",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "elonian-leather",
+    "toolboxId": "0b03af",
+    "name": "Elonian Leather Square",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "ink",
+    "toolboxId": "0b03b0",
+    "name": "Vial of Ink",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "obsidian",
+    "toolboxId": "0b03b1",
+    "name": "Obsidian Shard",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "steel",
+    "toolboxId": "0b03b5",
+    "name": "Steel Ingot",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "deldrimor-steel",
+    "toolboxId": "0b03b6",
+    "name": "Deldrimor Steel Ingot",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "parchment",
+    "toolboxId": "0b03b7",
+    "name": "Roll of Parchment",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "vellum",
+    "toolboxId": "0b03b8",
+    "name": "Roll of Vellum",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "spiritwood",
+    "toolboxId": "0b03bc",
+    "name": "Spiritwood Plank",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "amber",
+    "toolboxId": "0b1984",
+    "name": "Amber Chunk",
+    "group": "rare",
+    "lotSize": 1
+  },
+  {
+    "id": "jadeite",
+    "toolboxId": "0b1985",
+    "name": "Jadeite Shard",
+    "group": "rare",
+    "lotSize": 1
+  }
+]

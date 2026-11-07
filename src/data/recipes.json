@@ -1,0 +1,172 @@
+{
+  "source": "https://wiki.guildwars.com/wiki/Artisan#All_offered_materials",
+  "verifiedOn": "2026-11-05",
+  "recipes": [
+    {
+      "output": "damask",
+      "fee": 200,
+      "ingredients": [
+        {
+          "material": "plant-fiber",
+          "quantity": 5
+        },
+        {
+          "material": "dust",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "linen",
+      "fee": 200,
+      "ingredients": [
+        {
+          "material": "plant-fiber",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "silk",
+      "fee": 250,
+      "ingredients": [
+        {
+          "material": "cloth",
+          "quantity": 10
+        },
+        {
+          "material": "dust",
+          "quantity": 10
+        }
+      ]
+    },
+    {
+      "output": "deldrimor-steel",
+      "fee": 200,
+      "ingredients": [
+        {
+          "material": "iron",
+          "quantity": 10
+        },
+        {
+          "material": "charcoal",
+          "quantity": 1
+        },
+        {
+          "material": "dust",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "elonian-leather",
+      "fee": 50,
+      "ingredients": [
+        {
+          "material": "tanned-hide",
+          "quantity": 5
+        },
+        {
+          "material": "dust",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "leather",
+      "fee": 50,
+      "ingredients": [
+        {
+          "material": "tanned-hide",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "charcoal",
+      "fee": 200,
+      "ingredients": [
+        {
+          "material": "wood",
+          "quantity": 10
+        }
+      ]
+    },
+    {
+      "output": "parchment",
+      "fee": 20,
+      "ingredients": [
+        {
+          "material": "wood",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "vellum",
+      "fee": 20,
+      "ingredients": [
+        {
+          "material": "wood",
+          "quantity": 5
+        },
+        {
+          "material": "dust",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "spiritwood",
+      "fee": 100,
+      "ingredients": [
+        {
+          "material": "wood",
+          "quantity": 5
+        },
+        {
+          "material": "dust",
+          "quantity": 10
+        }
+      ]
+    },
+    {
+      "output": "steel",
+      "fee": 200,
+      "ingredients": [
+        {
+          "material": "iron",
+          "quantity": 10
+        },
+        {
+          "material": "charcoal",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "output": "glass",
+      "fee": 20,
+      "ingredients": [
+        {
+          "material": "dust",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "output": "ink",
+      "fee": 20,
+      "ingredients": [
+        {
+          "material": "plant-fiber",
+          "quantity": 4
+        },
+        {
+          "material": "glass",
+          "quantity": 1
+        }
+      ]
+    }
+  ]
+}

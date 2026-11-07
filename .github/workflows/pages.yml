@@ -1,0 +1,70 @@
+name: Refresh prices and publish Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Offset from the top of the hour. GitHub schedules are best-effort.
+    - cron: '2-59/5 * * * *'
+
+# Serialize source changes and scheduled price updates; never race the data branch.
+concurrency:
+  group: artisan-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - name: Restore last valid snapshot
+        run: node scripts/price-branch.mjs restore
+      - name: Fetch, validate, and convert Toolbox prices
+        id: refresh
+        continue-on-error: true
+        run: npm run prices:update
+      - name: Report refresh failure
+        if: steps.refresh.outcome == 'failure'
+        run: echo '::warning::Toolbox refresh failed. Retaining the last valid snapshot; see source age on the page.'
+      - name: Validate snapshot and run calculation tests
+        run: |
+          npm run prices:check
+          npm test
+      - name: Check whether the snapshot changed
+        id: data
+        run: node scripts/price-branch.mjs compare
+      - name: Build static site
+        if: github.event_name != 'schedule' || steps.data.outputs.changed == 'true'
+        run: npm run build
+      - name: Configure Pages
+        if: github.event_name != 'schedule' || steps.data.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+      - name: Upload site
+        if: github.event_name != 'schedule' || steps.data.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Deploy Pages
+        id: deployment
+        if: github.event_name != 'schedule' || steps.data.outputs.changed == 'true'
+        uses: actions/deploy-pages@v4
+      - name: Save validated snapshot
+        # Save after a successful deployment, so a failed deployment retries on
+        # the next run even when the upstream data has not changed again.
+        if: github.event_name != 'schedule' || steps.data.outputs.changed == 'true'
+        run: node scripts/price-branch.mjs publish
