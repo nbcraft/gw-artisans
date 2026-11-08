@@ -1,7 +1,11 @@
 import { materials } from './catalog.ts';
+import LZString from 'lz-string';
 
 export const SCHEMA_VERSION = 1;
-export const CACHE_MS = 5 * 60 * 1000;
+const REFRESH_MS = 2 * 60 * 1000;
+const SOURCE_URL = 'https://kamadan.gwtoolbox.com/trader_quotes';
+export const WEBSOCKET_URL = 'wss://kamadan.gwtoolbox.com';
+const CACHE_KEY = 'artisan-ledger:prices:v1';
 export interface PriceQuote { gold: number; quantity: number; observedAt: string }
 export interface MaterialPrice { buy: PriceQuote; sell: PriceQuote }
 export interface PriceSnapshot {
@@ -40,7 +44,7 @@ export function normalizeToolbox(input: unknown): PriceSnapshot {
     schemaVersion: SCHEMA_VERSION,
     source: {
       name: 'Kamadan / GWToolbox',
-      url: 'https://kamadan.gwtoolbox.com/trader_quotes',
+      url: SOURCE_URL,
       updatedAt: timestamp(raw.updated_at, 'source timestamp'),
     },
     materials: {},
@@ -86,4 +90,146 @@ export function unitPrice(snapshot: PriceSnapshot, id: string, side: 'buy' | 'se
   const quote = snapshot.materials[id]?.[side];
   if (!quote) throw new Error(`No ${side} quote for ${id}`);
   return quote.gold / quote.quantity;
+}
+
+/** Chat/status messages are unrelated to prices and do not reach the UI. */
+export function decodeToolboxMessage(data: unknown): PriceSnapshot | undefined {
+  if (typeof data !== 'string') throw new Error('Expected a Toolbox text message');
+  const text = LZString.decompressFromUTF16(data);
+  if (!text) throw new Error('Could not decompress Toolbox message');
+  const message = record(JSON.parse(text));
+  if (!('buy' in message || 'sell' in message)) return;
+  return normalizeToolbox(message);
+}
+
+export interface PriceState { snapshot?: PriceSnapshot; lastReceivedAt?: string; error?: string }
+
+export function cachedPriceState(): PriceState {
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) ?? 'null');
+    if (cached) return {
+      snapshot: validateSnapshot(cached.snapshot),
+      lastReceivedAt: isoDate(cached.lastReceivedAt) ? cached.lastReceivedAt : undefined,
+    };
+  } catch { /* Storage may be disabled or contain an invalid/older schema. */ }
+  return {};
+}
+
+/** Owns transport, validation, and last-valid-data preservation for one page. */
+export function watchPrices(onChange: (state: PriceState) => void, previous: PriceState = {}): () => void {
+  const cached = cachedPriceState();
+  let snapshot = cached.snapshot;
+  if (previous.snapshot && (!snapshot || previous.snapshot.source.updatedAt > snapshot.source.updatedAt)) snapshot = previous.snapshot;
+  let lastReceivedAt = [cached.lastReceivedAt, previous.lastReceivedAt].filter((date): date is string => !!date).sort().at(-1);
+  let stopped = false;
+  let warned = false;
+  let socket: WebSocket | undefined;
+  let reconnectDelay = 5_000;
+  let reconnectTimer: ReturnType<typeof setTimeout> | undefined;
+  let responseTimer: ReturnType<typeof setTimeout> | undefined;
+  let refreshTimer: ReturnType<typeof setTimeout> | undefined;
+  let refresh = () => {};
+  onChange({ snapshot, lastReceivedAt });
+
+  const accept = (next: PriceSnapshot) => {
+    if (stopped) return;
+    warned = false;
+    // A valid response proves successful access even when the source data is unchanged.
+    lastReceivedAt = new Date().toISOString();
+    // Reconnecting must not roll prices backward.
+    if (!snapshot || next.source.updatedAt >= snapshot.source.updatedAt) snapshot = next;
+    onChange({ snapshot, lastReceivedAt });
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ snapshot, lastReceivedAt }));
+    } catch { /* The current page still works when storage is unavailable. */ }
+  };
+
+  const closeSocket = () => {
+    clearTimeout(responseTimer);
+    clearTimeout(refreshTimer);
+    refresh = () => {};
+    if (socket) {
+      socket.onopen = socket.onmessage = socket.onerror = socket.onclose = null;
+      socket.close();
+      socket = undefined;
+    }
+  };
+
+  const connect = () => {
+    if (stopped) return;
+    clearTimeout(reconnectTimer);
+    closeSocket();
+    let failedOnce = false;
+    const failed = (reason: string) => {
+      if (stopped || failedOnce) return;
+      failedOnce = true;
+      closeSocket();
+      if (!warned) {
+        console.warn(`[Toolbox prices] ${reason}. Retrying in ${reconnectDelay / 1000}s.`);
+        warned = true;
+      }
+      onChange({ snapshot, lastReceivedAt, error: 'Could not reach Toolbox. Reconnecting… Any prices shown are from the last successful connection.' });
+      reconnectTimer = setTimeout(connect, reconnectDelay);
+      reconnectDelay = Math.min(reconnectDelay * 2, 60_000);
+    };
+    try {
+      const connection = new WebSocket(WEBSOCKET_URL);
+      socket = connection;
+      let lastRequestAt = -Infinity;
+      responseTimer = setTimeout(() => failed('Connection timed out after 15s'), 15_000);
+      const requestPrices = () => {
+        if (stopped || socket !== connection) return;
+        clearTimeout(refreshTimer);
+        if (document.hidden) return;
+        const remaining = REFRESH_MS - (Date.now() - lastRequestAt);
+        if (remaining > 0) {
+          refreshTimer = setTimeout(requestPrices, remaining);
+          return;
+        }
+        lastRequestAt = Date.now();
+        clearTimeout(responseTimer);
+        responseTimer = setTimeout(() => failed('Price request timed out after 15s'), 15_000);
+        try {
+          connection.send(JSON.stringify({ compression: 'lz', send_prices: 1 }));
+          refreshTimer = setTimeout(requestPrices, REFRESH_MS);
+        }
+        catch { failed('Could not send price request'); }
+      };
+      socket.onopen = () => {
+        clearTimeout(responseTimer);
+        refresh = requestPrices;
+        if (document.hidden) {
+          // Configure decoding without requesting prices in a background tab.
+          try { socket?.send(JSON.stringify({ compression: 'lz' })); }
+          catch { failed('Could not configure WebSocket'); }
+        } else requestPrices();
+      };
+      socket.onmessage = event => {
+        try {
+          const next = decodeToolboxMessage(event.data);
+          if (!next) return;
+          clearTimeout(responseTimer);
+          reconnectDelay = 5_000;
+          accept(next);
+        } catch { failed('Invalid price response'); }
+      };
+      socket.onerror = () => failed('WebSocket connection error');
+      socket.onclose = event => failed(`WebSocket closed (code ${event.code})`);
+    } catch { failed('Could not open WebSocket'); }
+  };
+
+  const onVisible = () => {
+    if (document.hidden) clearTimeout(refreshTimer);
+    else refresh();
+  };
+  document.addEventListener('visibilitychange', onVisible);
+  // StrictMode immediately cleans up its first development effect. Defer the
+  // handshake so that cleanup can cancel it before a socket is opened.
+  reconnectTimer = setTimeout(connect, 0);
+  return () => {
+    stopped = true;
+    closeSocket();
+    clearTimeout(reconnectTimer);
+    document.removeEventListener('visibilitychange', onVisible);
+  };
 }

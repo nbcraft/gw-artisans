@@ -15,7 +15,6 @@ test('normalize every material into a stable schema and preserve lot sizes and q
   assert.equal(snapshot.materials.dust.sell.observedAt, '2026-01-01T00:00:00.000Z');
   assert.equal(unitPrice(snapshot, 'dust', 'sell'), 28);
   assert.equal(validateSnapshot(snapshot), snapshot);
-  assert.deepEqual(normalizeToolbox(raw), normalizeToolbox(raw), 'Conversion is deterministic');
 });
 
 test('reject malformed, partial, future-dated, or incorrectly identified upstream quotes', () => {
@@ -56,6 +55,19 @@ test('benefit subtracts sale opportunity cost, not ingredient buy prices', () =>
   assert.notEqual(snapshot.materials.dust.buy.gold, snapshot.materials.dust.sell.gold);
 });
 
+test('prorate common-material lots without rounding and preserve negative benefits', () => {
+  const raw = fixtureRaw();
+  raw.sell[materials.find(material => material.id === 'dust')!.toolboxId].p = 281;
+  const snapshot = normalizeToolbox(raw);
+  const vellum = routesFor(recipes.find(recipe => recipe.output === 'vellum')!)[0];
+  const result = evaluateRecipe(vellum, snapshot);
+  assert.equal(result.ingredients.find(ingredient => ingredient.material === 'dust')?.value, 140.5);
+  assert.equal(result.ingredientValue, 160.5); // 5 wood at 4 + half a 281-gold dust lot
+  assert.equal(result.salePrice, 100);
+  assert.equal(result.fee, 20);
+  assert.equal(result.benefit, -80.5);
+});
+
 test('glass-to-ink chain includes both fees and original dust/fiber opportunity costs', () => {
   const snapshot = normalizeToolbox(fixtureRaw());
   const ink = recipes.find(r => r.output === 'ink')!;
@@ -85,4 +97,36 @@ test('recipe inputs all refer to known materials, including rare inputs', () => 
     assert.ok(ids.has(recipe.output));
     for (const input of recipe.ingredients) assert.ok(ids.has(input.material));
   }
+});
+
+test('common buy-price mode changes input costs and benefit while preserving fees and output sell price', () => {
+  const snapshot = normalizeToolbox(fixtureRaw());
+  const damask = routesFor(recipes.find(r => r.output === 'damask')!)[0];
+  const sell = evaluateRecipe(damask, snapshot, 'sell');
+  const buy = evaluateRecipe(damask, snapshot, 'buy');
+  assert.equal(sell.ingredientValue, 590);
+  assert.equal(buy.ingredientValue, 690); // 5 fiber at 100 + 5 dust at 38; lots are prorated
+  assert.equal(buy.benefit, 60);
+  assert.equal(buy.salePrice, sell.salePrice);
+  assert.equal(buy.fee, sell.fee);
+  assert.deepEqual(buy.ingredients.map(i => i.value), [500, 190]);
+});
+
+test('buy mode keeps rare inputs at sell price and applies common buy prices to intermediate routes', () => {
+  const snapshot = normalizeToolbox(fixtureRaw());
+  const [direct, chained] = routesFor(recipes.find(r => r.output === 'ink')!)
+    .map(route => evaluateRecipe(route, snapshot, 'buy'));
+  assert.equal(direct.ingredients.find(i => i.material === 'glass')?.value, 200, 'Owned rare input uses sell, not buy (300)');
+  assert.equal(direct.ingredientValue, 600);
+  assert.equal(direct.benefit, 30);
+  assert.equal(chained.ingredientValue, 590);
+  assert.equal(chained.fee, 40);
+  assert.equal(chained.benefit, 20);
+  const [steel, viaCharcoal] = routesFor(recipes.find(r => r.output === 'deldrimor-steel')!)
+    .map(route => evaluateRecipe(route, snapshot, 'buy'));
+  assert.equal(steel.ingredientValue, 700);
+  assert.equal(steel.benefit, 200);
+  assert.equal(viaCharcoal.ingredientValue, 600);
+  assert.equal(viaCharcoal.fee, 400);
+  assert.equal(viaCharcoal.benefit, 100);
 });

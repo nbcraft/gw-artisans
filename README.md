@@ -1,116 +1,67 @@
-# Artisan Ledger
+# Guild Wars Artisans
 
-A small Guild Wars crafting reference: React, TypeScript, Vite, and plain CSS. Hosted entirely on GitHub Pages. No database, application server, accounts, API keys, or additional hosting provider.
+Compare Guild Wars artisan crafting returns using current trader quotes. Includes 13 recipes, 3 intermediate crafting routes, sorting, ingredient search, and a material-price panel.
+
+Site: [nbcraft.github.io/gw-artisans](https://nbcraft.github.io/gw-artisans/)
 
 ## Run locally
 
-Use Node.js 26 or newer (the project and workflow select Node 26) and npm:
+Use Node.js 24 or newer and npm; `.node-version` pins the version used for development and deployment.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. The included price snapshot works immediately. To fetch new data manually:
-
-```sh
-npm run prices:update
-```
-
-Useful checks:
-
 ```sh
 npm test
-npm run prices:check
 npm run build
 npm run preview
 ```
 
-Vite provides the development server and builds ordinary static files in `dist/`. Node is used for development and GitHub Actions only; visitors need just a browser.
+Tests use fixed fixtures and simulated connections, without live prices or repository commands. The build produces a static site in `dist/`.
 
-## Publish to GitHub Pages
+## Calculations and controls
 
-1. Create a GitHub repository with `main` as its default branch. A public repository is the simplest Pages setup.
-2. Copy **the contents of this project folder** into its root and commit them. Include `.github/workflows/pages.yml`, `.node-version`, `.gitignore`, `package-lock.json`, and both files under `public/data/`. Do not upload `node_modules/` or `dist/`. GitHub's browser upload may omit hidden folders: ensure the workflow exists at `.github/workflows/pages.yml` (you can create it with **Add file → Create new file**).
-3. In **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source.
-4. Open **Actions → Refresh prices and publish Pages → Run workflow** on `main`. Subsequent source commits and the five-minute schedule trigger it automatically.
-5. Open the Pages URL shown by the successful deployment.
+**Benefit = output trader sell price − all crafting fees − starting ingredient value.**
 
-The default `GITHUB_TOKEN` is sufficient. The workflow requests `contents: write` to maintain the data branch and the normal Pages/OIDC deployment permissions. If repository or organization policies prohibit branch writes or Pages deployments, adjust those settings. If the default branch has a different name, update `push.branches` in the workflow.
+Choose **Sell price** (the default) to value owned common materials at what a trader would pay, or **Buy price** to use their purchase cost. Rare inputs and crafted outputs always use sell prices. Intermediate routes value their starting common materials using the same choice and include every crafting fee.
 
-Relative asset and data paths support both `https://username.github.io/repository/` and a root/custom-domain site without changing the Vite base setting.
+Common materials trade in lots of 10; rare lots contain one unit. Input values are prorated for the recipe quantity, so a partial lot is a valuation rather than an executable trade. Calculations retain full precision and display up to one decimal place.
 
-## Price updates and storage
+Sort buttons keep intermediate routes beside their direct recipe. Search matches output materials or ingredients. **Craftable only**, in the rare-price heading, hides rare materials without an artisan recipe while keeping common materials visible.
 
-One workflow:
+The browser remembers common-material valuation, intermediate-craft visibility, the craftable-only filter, and the sort column/direction. Searches are not saved. The sun/moon switch follows the system theme initially and saves a manual choice. Theme changes share a 220ms fade where supported; reduced-motion settings use an instant switch. Controls still work for the current visit if browser storage is unavailable.
 
-1. Restores the last successful snapshot from the separate **`price-data` branch**; the bundled files provide the first-run fallback.
-2. Makes one request to `https://kamadan.gwtoolbox.com/trader_quotes`.
-3. Validates all 36 material quotes and converts them into our versioned schema.
-4. Runs tests and builds the site when prices changed, or on a manual/source-triggered run.
-5. Publishes the static site, then saves the validated data to `price-data`.
+## Price freshness
 
-The data branch is created automatically and contains only `prices.json` and `toolbox-raw.json`. Source history stays on `main`; scheduled updates do not commit to `main`. The source-bundled snapshot may consequently be older than the live data branch. When working locally, use `npm run prices:update` to refresh it.
+The browser connects directly to [Kamadan / GWToolbox](https://kamadan.gwtoolbox.com/) over WebSocket. The first visit needs a working connection; subsequent visits can display the last valid cached prices during an outage.
 
-Invalid responses, missing material quotes, network failures, and older snapshots never replace valid data. A failed fetch appears as a warning in Actions; the previous snapshot remains available. Unchanged scheduled runs skip deployment and data commits. A failed deployment is retried on a later run. Browser visitors only request our own Pages JSON, never Toolbox.
+Prices are requested every two minutes while the tab is visible. Hidden tabs pause requests and retain the connection. Returning requests prices immediately if the last query was at least two minutes ago; otherwise it waits the remaining time. Failed or silent connections reconnect automatically, with one concise console warning per outage.
 
-The schedule runs at minutes 2, 7, 12, etc. GitHub scheduling is best-effort: jobs may be delayed or dropped, and scheduled workflows on inactive public repositories can be disabled after 60 days. This is a five-minute refresh target, **not a maximum data age**. Toolbox itself may provide older observations. The interface always shows Toolbox's source timestamp and age; each quote has its own observation-time tooltip.
+**Prices last refreshed** shows the age of Toolbox’s source data, not the age of the connection. Hover for the exact date/time. The dot is green below five minutes, orange from five through fifteen minutes, and red above fifteen. The question mark shows the last successful validated response time separately. Each buy/sell quote also has its own observation-time tooltip. Receiving unchanged prices does not make their source timestamp newer.
 
-The page checks for a newer shared JSON snapshot every five minutes while visible and uses a versioned browser cache. It retains the last valid browser snapshot on a network error. No service worker is installed, which avoids trapping visitors on an old application version.
+Only validated, complete prices replace cached data; older source timestamps cannot roll prices backward. Local storage is optional. Unrelated chat/status frames are discarded. No account, API key, backend, hosted price snapshot, or scheduled collection is needed.
 
-## Data contract
+## Deploy to GitHub Pages
 
-The website reads **only `public/data/prices.json`**, not Toolbox's raw format:
+The intended repository is `nbcraft/gw-artisans`, serving [https://nbcraft.github.io/gw-artisans/](https://nbcraft.github.io/gw-artisans/).
 
-```json
-{
-  "schemaVersion": 1,
-  "source": {
-    "name": "Kamadan / GWToolbox",
-    "url": "https://kamadan.gwtoolbox.com/trader_quotes",
-    "updatedAt": "2026-11-05T22:31:26.000Z"
-  },
-  "materials": {
-    "dust": {
-      "buy": { "gold": 380, "quantity": 10, "observedAt": "2026-11-05T22:28:00.000Z" },
-      "sell": { "gold": 280, "quantity": 10, "observedAt": "2026-11-05T22:28:05.000Z" }
-    }
-  }
-}
-```
+1. Keep source files, `package-lock.json`, `.node-version`, and `.github/workflows/pages.yml` in the repository. Exclude dependencies, build output, verification artifacts, caches, and private configuration.
+2. In **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**. GitHub Free requires a public repository for Pages; supported paid plans also allow private repositories.
+3. Push the release changes to `main` or manually run **Build and publish Pages**. The workflow installs dependencies, runs tests, builds, and deploys `dist/`. A release/tag alone does not trigger it.
 
-This is an illustrative excerpt; the actual file contains all 36 crafting materials. `gold` is the total price for `quantity`, not the per-unit value. `buy` is what the player pays; `sell` is what the player receives. All timestamps are ISO 8601 UTC strings, displayed in the visitor's browser timezone.
+Vite’s relative `base: './'` supports the repository subpath without hard-coding the account or repository name. No custom domain, data branch, `gh-pages` branch, or committed `dist/` is required. If the deployment branch changes, update `push.branches` in the workflow. The workflow uses read-only repository access plus Pages/OIDC deployment permissions.
 
-`public/data/toolbox-raw.json` retains the **entire upstream response**, including other trader items, for future conversion work. Adding a UI feature never requires reading raw Toolbox fields in React. Stable material IDs and Toolbox mappings live in `src/data/materials.json`; validation and conversion live in `src/prices.ts`. If the upstream format changes, update the converter. Deliberate changes to our public contract must also change `schemaVersion`, its validator, and the browser cache key.
+## Source and maintenance
 
-## Calculation rules
+- `src/App.tsx`, `src/styles.css`: interface, preferences, and theme.
+- `src/prices.ts`, `src/usePrices.ts`: price access, normalized schema, validation, cache, and React subscription.
+- `src/catalog.ts`, `src/data/`, `src/calculations.ts`: bundled materials/recipes, intermediate routes, and calculations.
+- `tests/`: deterministic calculation, normalization, cache, and connection-lifecycle coverage.
 
-Every row produces one rare material:
-
-**Benefit = output trader sale price − all crafting fees − starting ingredients' trader sale value.**
-
-All starting ingredients are assumed owned, including rare inputs in direct recipes. Common quotes are for lots of 10; rare quotes are for one. Calculations prorate common prices, so they represent opportunity cost rather than an executable quote for a partial lot. No rounding occurs in the calculations; display formatting permits one decimal place.
-
-Secondary rows replace the owned intermediate ingredient with its own starting ingredients and include both crafting fees. The three current alternatives are crafted charcoal for Steel/Deldrimor Steel and crafted glass for Ink. Alternative rows remain attached to their primary recipe when sorting; numeric sorting uses the direct recipe's value.
-
-The first version includes 13 recipes, 3 alternative routes, sortable columns, ingredient/material search, a chain toggle, and all 36 buy/sell quotes. Prices may move as you transact; the page cannot predict bulk price changes.
-
-## Source layout
-
-| Path | Purpose |
-| --- | --- |
-| `src/App.tsx`, `src/styles.css` | Table, price panel, source age, presentation |
-| `src/data/materials.json` | Stable IDs, names, groups, lot sizes, Toolbox identifiers |
-| `src/data/recipes.json` | Bundled wiki recipes and verification date |
-| `src/catalog.ts` | Recipe types and intermediate-route expansion |
-| `src/calculations.ts` | Pure crafting calculations |
-| `src/prices.ts` | Normalized contract, upstream converter, validation |
-| `src/usePrices.ts` | Loading, five-minute browser cache, refresh/error behavior |
-| `scripts/update-prices.mjs` | Fetch, validate, normalize, atomic file replacement |
-| `scripts/price-branch.mjs` | Restore/compare/publish data without changing the source checkout |
-| `.github/workflows/pages.yml` | Scheduled refresh and Pages deployment |
-| `tests/` | Fixed calculation fixtures, schema failures, local Git round-trip |
+See [PROJECT.md](PROJECT.md) for scope decisions and [AGENTS.md](AGENTS.md) for contributor working rules. Treat all browser assets and public repository history as public information; never add credentials or private data.
 
 ## Credits
 
-Recipes: [Guild Wars Wiki — Artisan / All offered materials](https://wiki.guildwars.com/wiki/Artisan#All_offered_materials), verified November 5, 2026. Prices: [Kamadan / GWToolbox](https://kamadan.gwtoolbox.com/). This independent fan tool is not affiliated with ArenaNet, NCSoft, or GWToolbox. Guild Wars names and game content belong to their respective owners.
+Recipes: [Guild Wars Wiki — Artisan](https://wiki.guildwars.com/wiki/Artisan#All_offered_materials), verified November 5, 2026. Prices: [Kamadan / GWToolbox](https://kamadan.gwtoolbox.com/). This independent fan tool is not affiliated with ArenaNet, NCSoft, or GWToolbox. Guild Wars names and game content belong to their respective owners.
