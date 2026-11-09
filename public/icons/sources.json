@@ -1,0 +1,259 @@
+{
+  "source": "Guild Wars Wiki",
+  "retrievedOn": "2026-11-08",
+  "notes": "These are third-party assets, not original project artwork. Consult each linked file page for copyright and licensing information. ArenaNet game artwork remains the property of ArenaNet / NCSoft.",
+  "assets": [
+    {
+      "path": "materials/bone.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Bone.png",
+      "originalUrl": "https://wiki.guildwars.com/images/2/2c/Bone.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/cloth.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Bolt_of_Cloth.png",
+      "originalUrl": "https://wiki.guildwars.com/images/a/ac/Bolt_of_Cloth.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/dust.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Pile_of_Glittering_Dust.png",
+      "originalUrl": "https://wiki.guildwars.com/images/6/62/Pile_of_Glittering_Dust.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/feather.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Feather.png",
+      "originalUrl": "https://wiki.guildwars.com/images/3/33/Feather.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/plant-fiber.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Plant_Fiber.png",
+      "originalUrl": "https://wiki.guildwars.com/images/6/6f/Plant_Fiber.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/tanned-hide.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Tanned_Hide_Square.png",
+      "originalUrl": "https://wiki.guildwars.com/images/0/00/Tanned_Hide_Square.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/wood.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Wood_Plank.png",
+      "originalUrl": "https://wiki.guildwars.com/images/9/9f/Wood_Plank.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/iron.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Iron_Ingot.png",
+      "originalUrl": "https://wiki.guildwars.com/images/0/0a/Iron_Ingot.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/scale.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Scale.png",
+      "originalUrl": "https://wiki.guildwars.com/images/4/4a/Scale.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/chitin.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Chitin_Fragment.png",
+      "originalUrl": "https://wiki.guildwars.com/images/3/34/Chitin_Fragment.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/granite.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Granite_Slab.png",
+      "originalUrl": "https://wiki.guildwars.com/images/3/37/Granite_Slab.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/charcoal.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Lump_of_Charcoal.png",
+      "originalUrl": "https://wiki.guildwars.com/images/9/9e/Lump_of_Charcoal.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/monstrous-claw.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Monstrous_Claw.png",
+      "originalUrl": "https://wiki.guildwars.com/images/f/f3/Monstrous_Claw.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/linen.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Bolt_of_Linen.png",
+      "originalUrl": "https://wiki.guildwars.com/images/c/c6/Bolt_of_Linen.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/damask.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Bolt_of_Damask.png",
+      "originalUrl": "https://wiki.guildwars.com/images/6/61/Bolt_of_Damask.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/silk.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Bolt_of_Silk.png",
+      "originalUrl": "https://wiki.guildwars.com/images/2/20/Bolt_of_Silk.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/ectoplasm.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Glob_of_Ectoplasm.png",
+      "originalUrl": "https://wiki.guildwars.com/images/9/9b/Glob_of_Ectoplasm.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/monstrous-eye.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Monstrous_Eye.png",
+      "originalUrl": "https://wiki.guildwars.com/images/3/3d/Monstrous_Eye.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/monstrous-fang.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Monstrous_Fang.png",
+      "originalUrl": "https://wiki.guildwars.com/images/0/02/Monstrous_Fang.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/diamond.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Diamond.png",
+      "originalUrl": "https://wiki.guildwars.com/images/e/ea/Diamond.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/onyx.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Onyx_Gemstone.png",
+      "originalUrl": "https://wiki.guildwars.com/images/e/e8/Onyx_Gemstone.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/ruby.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Ruby.png",
+      "originalUrl": "https://wiki.guildwars.com/images/a/a9/Ruby.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/sapphire.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Sapphire.png",
+      "originalUrl": "https://wiki.guildwars.com/images/f/f7/Sapphire.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/glass.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Tempered_Glass_Vial.png",
+      "originalUrl": "https://wiki.guildwars.com/images/5/50/Tempered_Glass_Vial.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/fur.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Fur_Square.png",
+      "originalUrl": "https://wiki.guildwars.com/images/d/d4/Fur_Square.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/leather.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Leather_Square.png",
+      "originalUrl": "https://wiki.guildwars.com/images/0/02/Leather_Square.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/elonian-leather.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Elonian_Leather_Square.png",
+      "originalUrl": "https://wiki.guildwars.com/images/a/a2/Elonian_Leather_Square.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/ink.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Vial_of_Ink.png",
+      "originalUrl": "https://wiki.guildwars.com/images/8/8a/Vial_of_Ink.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/obsidian.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Obsidian_Shard.png",
+      "originalUrl": "https://wiki.guildwars.com/images/f/f1/Obsidian_Shard.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/steel.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Steel_Ingot.png",
+      "originalUrl": "https://wiki.guildwars.com/images/b/bd/Steel_Ingot.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/deldrimor-steel.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Deldrimor_Steel_Ingot.png",
+      "originalUrl": "https://wiki.guildwars.com/images/2/22/Deldrimor_Steel_Ingot.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/parchment.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Roll_of_Parchment.png",
+      "originalUrl": "https://wiki.guildwars.com/images/c/ce/Roll_of_Parchment.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/vellum.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Roll_of_Vellum.png",
+      "originalUrl": "https://wiki.guildwars.com/images/f/f2/Roll_of_Vellum.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/spiritwood.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Spiritwood_Plank.png",
+      "originalUrl": "https://wiki.guildwars.com/images/8/8e/Spiritwood_Plank.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/amber.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Amber_Chunk.png",
+      "originalUrl": "https://wiki.guildwars.com/images/7/76/Amber_Chunk.png",
+      "width": 52,
+      "height": 64
+    },
+    {
+      "path": "materials/jadeite.png",
+      "filePage": "https://wiki.guildwars.com/wiki/File:Jadeite_Shard.png",
+      "originalUrl": "https://wiki.guildwars.com/images/1/12/Jadeite_Shard.png",
+      "width": 52,
+      "height": 64
+    }
+  ]
+}

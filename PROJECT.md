@@ -6,6 +6,7 @@
 - Toolbox’s developer approved use of either public endpoint without a usage restriction. A Chromium check on November 8, 2026 found HTTP access blocked by CORS, while WebSocket access worked; use the working WebSocket transport with LZ-String decoding.
 - Preserve Toolbox source and per-quote timestamps independently of browser response times. A successful connection can still return old data; show that age honestly and retain valid prices through outages.
 - The reference covers every bundled artisan recipe and the three known intermediate routes. Common-input buy/sell valuation is selectable; rare inputs and outputs retain sell valuation.
+- Bundle the fixed material icons locally, with original wiki file links, so icon display does not depend on wiki availability. Display prices in gold with thousands separators and a small `g` label.
 - Prefer a small source tree and existing platform features over additional libraries or abstraction layers. Keep automated tests independent of live Toolbox data; verify browser access and presentation separately.
 
 ## Possible later work

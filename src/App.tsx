@@ -6,9 +6,14 @@ import type { PriceSnapshot } from './prices.ts';
 import { usePrices } from './usePrices';
 
 const gold = new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 });
+const iconUrl = (path: string) => `${import.meta.env.BASE_URL}icons/${path}`;
 function Gold({ value, signed = false }: { value: number; signed?: boolean }) {
   const sign = signed ? value > 0 ? '+' : value < 0 ? '−' : '' : value < 0 ? '−' : '';
-  return <span className="gold">{sign}{gold.format(Math.abs(value))}<span className="gold-unit">g</span></span>;
+  return <span className="gold">{sign}{gold.format(Math.abs(value))}{' '}<span className="gold-unit">g</span></span>;
+}
+function MaterialName({ id }: { id: string }) {
+  const material = materialById[id];
+  return <span className="material-label"><img className="material-icon" src={iconUrl(`materials/${id}.png`)} alt="" width={24} height={24} /><span>{material.shortName ?? material.name}</span></span>;
 }
 function ageText(timestamp: string, now: number) {
   const minutes = Math.max(1, Math.floor((now - Date.parse(timestamp)) / 60_000));
@@ -17,6 +22,10 @@ function ageText(timestamp: string, now: number) {
   if (hours < 24) return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
   const days = Math.floor(hours / 24);
   return `${days} ${days === 1 ? 'day' : 'days'} ago`;
+}
+function freshnessStatus(timestamp: string, now: number) {
+  const age = Math.max(0, now - Date.parse(timestamp));
+  return age < 5 * 60_000 ? 'fresh' : age <= 15 * 60_000 ? 'aging' : 'stale';
 }
 const fullDate = (timestamp: string) => new Date(timestamp).toLocaleString(undefined, {
   year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit', timeZoneName: 'short',
@@ -65,12 +74,15 @@ function SourceTime({ snapshot, lastReceivedAt }: { snapshot: PriceSnapshot; las
     return () => window.clearInterval(timer);
   }, []);
   const timestamp = snapshot.source.updatedAt;
-  const age = Math.max(0, now - Date.parse(timestamp));
-  const status = age < 5 * 60_000 ? 'fresh' : age <= 15 * 60_000 ? 'aging' : 'stale';
+  const status = freshnessStatus(timestamp, now);
   return <div className="source-time">
     <div className="source-label"><span>Prices last refreshed</span><span className="source-help" data-dismissed={helpDismissed} onMouseEnter={() => setHelpDismissed(false)} onFocus={() => setHelpDismissed(false)}>
       <button type="button" className="help-button" aria-label="About price refresh times" aria-describedby="price-refresh-help">?</button>
-      <span className="source-tooltip" role="tooltip" id="price-refresh-help">Toolbox may take time to refresh material prices. The age shown reflects Toolbox’s data, not when we received it.<br /><br />Last successful connection to Toolbox: {lastReceivedAt ? fullDate(lastReceivedAt) : 'Not yet recorded.'}</span>
+      <span className="source-tooltip" role="tooltip" id="price-refresh-help">
+        Toolbox may take time to refresh material prices.<br />The age shown reflects Toolbox’s data, not when we received it.<br /><br />
+        Last successful connection to Toolbox:<br />
+        {lastReceivedAt ? <span className="connection-age"><span className={`status-dot ${freshnessStatus(lastReceivedAt, now)}`} aria-hidden="true" /><span>{ageText(lastReceivedAt, now)} ({fullDate(lastReceivedAt)})</span></span> : 'Not yet recorded.'}
+      </span>
     </span></div>
     <time className="source-age" dateTime={timestamp} title={fullDate(timestamp)} tabIndex={0} aria-label={`Updated ${ageText(timestamp, now)}. ${fullDate(timestamp)}`}>
       <span className={`status-dot ${status}`} aria-hidden="true" />{ageText(timestamp, now)}
@@ -147,8 +159,8 @@ function CraftingTable({ snapshot, preferences, onPreferencesChange }: TableProp
         <label className="search-box"><svg className="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg><input type="search" placeholder="Find a material…" aria-label="Search recipes by material or ingredient" value={search} onChange={e => setSearch(e.target.value)} /></label>
         <label className="chain-toggle"><input type="checkbox" checked={showChains} onChange={e => onPreferencesChange({ showChains: e.target.checked })} />Include intermediate crafts</label>
       </div>
-      <fieldset className="valuation-toggle"><legend className="sr-only">Common material prices</legend><span className="valuation-label" aria-hidden="true">Common material:</span><div className="valuation-options">
-          {(['sell', 'buy'] as const).map(side => <label key={side} className="valuation-choice"><input className="sr-only" type="radio" name="common-price-side" value={side} checked={commonPriceSide === side} onChange={() => onPreferencesChange({ commonPriceSide: side })} />{side === 'sell' ? 'Sell price' : 'Buy price'}</label>)}
+      <fieldset className="valuation-toggle"><legend className="sr-only">Use ingredients</legend><span className="valuation-label" aria-hidden="true">Use ingredients</span><div className="valuation-options">
+          {(['buy', 'sell'] as const).map(side => <label key={side} className="valuation-choice"><input className="sr-only" type="radio" name="common-price-side" value={side} checked={commonPriceSide === side} onChange={() => onPreferencesChange({ commonPriceSide: side })} />{side === 'sell' ? 'Sell price' : 'Buy price'}</label>)}
         </div></fieldset>
     </div>
     <div className="table-scroll" tabIndex={0} role="region" aria-label="Artisan recipes; scroll horizontally on smaller screens">
@@ -156,10 +168,10 @@ function CraftingTable({ snapshot, preferences, onPreferencesChange }: TableProp
         <caption className="sr-only">All artisan recipes. Common ingredients use trader {commonPriceSide} prices; rare ingredients and the output use sell prices. Sort buttons keep alternative routes with their main recipe.</caption>
         <thead><tr>{header('name', 'Rare material')}{header('fee', 'Fee')}<th scope="col">Ingredients <span className="th-note">({commonPriceSide} value)</span></th>{header('ingredientValue', 'Inputs')}{header('salePrice', 'Sells for')}{header('benefit', 'Benefit')}</tr></thead>
         <tbody>{groups.map(group => group.filter(row => showChains || !row.via).map(row => <tr key={row.id} className={row.via ? 'chain-row' : ''}>
-          <th scope="row"><span className="material-name">{row.via && <span className="route-mark" aria-hidden="true">↳</span>}{materialById[row.output].name}</span>
-            {row.via && <span className="route-note">Craft {materialById[row.via].name.toLowerCase()} first</span>}</th>
+          <th scope="row"><span className="material-name">{row.via && <span className="route-mark" aria-hidden="true">↳</span>}<MaterialName id={row.output} /></span>
+            {row.via && <span className="route-note">Craft <MaterialName id={row.via} /> first</span>}</th>
           <td className="numeric"><Gold value={row.fee} /></td>
-          <td className="ingredient-list">{row.ingredients.map(i => <span key={i.material}><span className="ingredient-quantity">{i.quantity} ×</span> {materialById[i.material].name} <span className="ingredient-value">(<Gold value={i.value} />)</span></span>)}</td>
+          <td className="ingredient-list">{row.ingredients.map(i => <span key={i.material}><span className="ingredient-quantity">{i.quantity} ×</span> <MaterialName id={i.material} /> <span className="ingredient-value">(<Gold value={i.value} />)</span></span>)}</td>
           <td className="numeric input-total"><Gold value={row.ingredientValue} /></td>
           <td className="numeric"><Gold value={row.salePrice} /></td>
           <td className={`numeric benefit ${row.benefit > 0 ? 'positive' : row.benefit < 0 ? 'negative' : 'neutral'}`}><Gold value={row.benefit} signed /></td>
@@ -182,11 +194,11 @@ function PricePanel({ snapshot, preferences, onPreferencesChange }: TableProps) 
     <label className="price-search"><input type="search" aria-label="Search trader prices" placeholder="Find a material…" value={search} onChange={e => setSearch(e.target.value)} /></label>
     <table className="prices-table"><caption className="sr-only">Trader quotes per lot. Hover or focus a price to see its observation time.</caption><thead><tr><th scope="col">Material</th><th scope="col" className="numeric">Buy</th><th scope="col" className="numeric">Sell</th></tr></thead>
       <tbody>{(['common', 'rare'] as const).map(group => {
-        const list = visible.filter(m => m.group === group).sort((a, b) => a.name.localeCompare(b.name));
+        const list = visible.filter(m => m.group === group).sort((a, b) => (a.shortName ?? a.name).localeCompare(b.shortName ?? b.name));
         if (!list.length && group === 'common') return null;
         return [<tr key={group} className="price-group"><th colSpan={3} scope="colgroup"><div className="price-group-heading"><span>{group === 'common' ? 'Common · per 10 units' : 'Rare · per 1 unit'}</span>{group === 'rare' && <label className="craftable-toggle"><input type="checkbox" checked={preferences.craftableOnly} onChange={e => onPreferencesChange({ craftableOnly: e.target.checked })} />Craftable only</label>}</div></th></tr>,
           ...list.map(material => <tr key={material.id}>
-            <th scope="row">{material.name}</th>
+            <th scope="row"><MaterialName id={material.id} /></th>
             {(['buy', 'sell'] as const).map(side => <td key={side} className="numeric"><span tabIndex={0} title={`Observed ${fullDate(snapshot.materials[material.id][side].observedAt)}`}><Gold value={snapshot.materials[material.id][side].gold} /></span></td>)}
           </tr>)];
       })}</tbody>

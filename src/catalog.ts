@@ -5,6 +5,7 @@ export interface Material {
   id: string;
   toolboxId: string;
   name: string;
+  shortName?: string;
   group: 'common' | 'rare';
   lotSize: number;
 }

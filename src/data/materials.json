@@ -10,6 +10,7 @@
     "id": "cloth",
     "toolboxId": "0b039d",
     "name": "Bolt of Cloth",
+    "shortName": "Cloth",
     "group": "common",
     "lotSize": 10
   },
@@ -17,6 +18,7 @@
     "id": "dust",
     "toolboxId": "0b03a1",
     "name": "Pile of Glittering Dust",
+    "shortName": "Glittering Dust",
     "group": "common",
     "lotSize": 10
   },

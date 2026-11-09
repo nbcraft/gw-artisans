@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — 2026-11-08
+
+- Add locally bundled wiki icons before material names in recipes, ingredients, intermediate-craft notes, and trader quotes.
+- Align material names with surrounding text and retain their capitalization in intermediate-craft notes.
+- Use the wiki’s shorter “Cloth” and “Glittering Dust” labels while retaining full-name search.
+- Rename the ingredient valuation control to “Use ingredients” and show Buy price before Sell price, retaining Sell price as the default.
+- Show the last successful Toolbox connection’s relative age with a freshness indicator and full date/time in parentheses in a compact tooltip centered below the refresh time.
+
 ## 0.2.0 — 2026-11-08
 
 - Fetch prices directly from Toolbox in the browser over LZ-compressed WebSocket, with validation, last-valid-price caching, automatic reconnects, and concise failure warnings.
