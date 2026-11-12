@@ -4,16 +4,12 @@ import { materialById, materials, recipes, recipeSource, routesFor } from './cat
 import { evaluateRecipe } from './calculations.ts';
 import type { PriceSnapshot } from './prices.ts';
 import { usePrices } from './usePrices';
+import { MaterialArtisans, MaterialName } from './MaterialArtisans.tsx';
 
 const gold = new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 });
-const iconUrl = (path: string) => `${import.meta.env.BASE_URL}icons/${path}`;
 function Gold({ value, signed = false }: { value: number; signed?: boolean }) {
   const sign = signed ? value > 0 ? '+' : value < 0 ? '−' : '' : value < 0 ? '−' : '';
   return <span className="gold">{sign}{gold.format(Math.abs(value))}{' '}<span className="gold-unit">g</span></span>;
-}
-function MaterialName({ id }: { id: string }) {
-  const material = materialById[id];
-  return <span className="material-label"><img className="material-icon" src={iconUrl(`materials/${id}.png`)} alt="" width={24} height={24} /><span>{material.shortName ?? material.name}</span></span>;
 }
 function ageText(timestamp: string, now: number) {
   const minutes = Math.max(1, Math.floor((now - Date.parse(timestamp)) / 60_000));
@@ -166,12 +162,20 @@ function CraftingTable({ snapshot, preferences, onPreferencesChange }: TableProp
     <div className="table-scroll" tabIndex={0} role="region" aria-label="Artisan recipes; scroll horizontally on smaller screens">
       <table className="crafting-table">
         <caption className="sr-only">All artisan recipes. Common ingredients use trader {commonPriceSide} prices; rare ingredients and the output use sell prices. Sort buttons keep alternative routes with their main recipe.</caption>
+        <colgroup>
+          <col className="recipe-material-column" />
+          <col className="recipe-fee-column" />
+          <col className="recipe-ingredients-column" />
+          <col className="recipe-value-column" />
+          <col className="recipe-value-column" />
+          <col className="recipe-benefit-column" />
+        </colgroup>
         <thead><tr>{header('name', 'Rare material')}{header('fee', 'Fee')}<th scope="col">Ingredients <span className="th-note">({commonPriceSide} value)</span></th>{header('ingredientValue', 'Inputs')}{header('salePrice', 'Sells for')}{header('benefit', 'Benefit')}</tr></thead>
         <tbody>{groups.map(group => group.filter(row => showChains || !row.via).map(row => <tr key={row.id} className={row.via ? 'chain-row' : ''}>
           <th scope="row"><span className="material-name">{row.via && <span className="route-mark" aria-hidden="true">↳</span>}<MaterialName id={row.output} /></span>
             {row.via && <span className="route-note">Craft <MaterialName id={row.via} /> first</span>}</th>
           <td className="numeric"><Gold value={row.fee} /></td>
-          <td className="ingredient-list">{row.ingredients.map(i => <span key={i.material}><span className="ingredient-quantity">{i.quantity} ×</span> <MaterialName id={i.material} /> <span className="ingredient-value">(<Gold value={i.value} />)</span></span>)}</td>
+          <td className="ingredient-list">{row.ingredients.map(i => <span key={i.material}><span className="ingredient-quantity">{i.quantity}</span>{' '}<span className="ingredient-multiplier">×</span>{' '}<MaterialName id={i.material} /> <span className="ingredient-value">(<Gold value={i.value} />)</span></span>)}</td>
           <td className="numeric input-total"><Gold value={row.ingredientValue} /></td>
           <td className="numeric"><Gold value={row.salePrice} /></td>
           <td className={`numeric benefit ${row.benefit > 0 ? 'positive' : row.benefit < 0 ? 'negative' : 'neutral'}`}><Gold value={row.benefit} signed /></td>
@@ -192,7 +196,9 @@ function PricePanel({ snapshot, preferences, onPreferencesChange }: TableProps) 
   return <aside className="prices-panel" aria-labelledby="prices-heading">
     <div className="prices-heading"><span className="eyebrow">THE TRADER’S COUNTER</span><h2 id="prices-heading">Material prices</h2></div>
     <label className="price-search"><input type="search" aria-label="Search trader prices" placeholder="Find a material…" value={search} onChange={e => setSearch(e.target.value)} /></label>
-    <table className="prices-table"><caption className="sr-only">Trader quotes per lot. Hover or focus a price to see its observation time.</caption><thead><tr><th scope="col">Material</th><th scope="col" className="numeric">Buy</th><th scope="col" className="numeric">Sell</th></tr></thead>
+    <table className="prices-table"><caption className="sr-only">Trader quotes per lot. Hover or focus a price to see its observation time.</caption>
+      <colgroup><col /><col className="price-quote-column" /><col className="price-quote-column" /></colgroup>
+      <thead><tr><th scope="col">Material</th><th scope="col" className="numeric">Buy</th><th scope="col" className="numeric">Sell</th></tr></thead>
       <tbody>{(['common', 'rare'] as const).map(group => {
         const list = visible.filter(m => m.group === group).sort((a, b) => (a.shortName ?? a.name).localeCompare(b.shortName ?? b.name));
         if (!list.length && group === 'common') return null;
@@ -212,7 +218,7 @@ function PricePanel({ snapshot, preferences, onPreferencesChange }: TableProps) 
 export default function App() {
   const { snapshot, lastReceivedAt, error, retry } = usePrices();
   const [preferences, updatePreferences] = usePreferences();
-  return <>
+  return <MaterialArtisans>
     <main>
       <div className="page-intro">
         <div className="intro-copy"><h1>KNOW WHAT YOUR MATERIALS ARE WORTH</h1><p>Artisan recipes, trader quotes, and the difference in your pocket.</p></div>
@@ -223,5 +229,5 @@ export default function App() {
         : <div className="workspace"><CraftingTable snapshot={snapshot} preferences={preferences} onPreferencesChange={updatePreferences} /><PricePanel snapshot={snapshot} preferences={preferences} onPreferencesChange={updatePreferences} /></div>}
       <footer><span>Independent fan tool. Guild Wars belongs to ArenaNet / NCSoft.</span><span><a href={recipeSource} target="_blank" rel="noreferrer">Recipes: Guild Wars Wiki ↗</a><a href="https://kamadan.gwtoolbox.com/" target="_blank" rel="noreferrer">Prices: GWToolbox ↗</a></span></footer>
     </main>
-  </>;
+  </MaterialArtisans>;
 }

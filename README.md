@@ -1,6 +1,6 @@
 # Guild Wars Artisans
 
-Compare Guild Wars artisan crafting returns using current trader quotes. Includes 13 recipes, 3 intermediate crafting routes, sorting, ingredient search, and a material-price panel.
+Compare Guild Wars artisan crafting returns using current trader quotes. Browse 13 recipes, find artisans, and calculate fees and ingredients for a batch.
 
 Site: [nbcraft.github.io/gw-artisans](https://nbcraft.github.io/gw-artisans/)
 
@@ -27,11 +27,15 @@ Tests use fixed fixtures and simulated connections, without live prices or repos
 
 Choose **Sell price** (the default) to value owned common materials at what a trader would pay, or **Buy price** to use their purchase cost. Rare inputs and crafted outputs always use sell prices. Intermediate routes value their starting common materials using the same choice and include every crafting fee.
 
-Common materials trade in lots of 10; rare lots contain one unit. Input values are prorated for the recipe quantity, so a partial lot is a valuation rather than an executable trade. Calculations retain full precision. Displayed values stay in gold, with thousands separators, up to one decimal place, and a smaller `g` label (for example, `1,200 g`).
+Common materials trade in lots of 10; rare lots contain one unit. Input values are prorated for the recipe quantity, so a partial lot is a valuation rather than an executable trade. Calculations retain full precision. Values are displayed in gold with thousands separators and up to one decimal place.
 
 Sort buttons keep intermediate routes beside their direct recipe. Search matches output materials or ingredients. **Craftable only**, in the rare-price heading, hides rare materials without an artisan recipe while keeping common materials visible.
 
-The browser remembers common-material valuation, intermediate-craft visibility, the craftable-only filter, and the sort column/direction. Searches are not saved. The sun/moon switch follows the system theme initially and saves a manual choice. Theme changes share a 220ms fade where supported; reduced-motion settings use an instant switch. Controls still work for the current visit if browser storage is unavailable.
+Click a craftable rare material’s icon or name anywhere in the app to see its artisans. The dialog highlights the most convenient artisan and groups the others by campaign, with wiki links and locally served location maps. Campaigns start expanded and remember their expanded or collapsed state across materials and page reloads. Click a map to open its bundled copy.
+
+Use **Amount needed** (1–250) in the material dialog to calculate total crafting fees and ingredient quantities. Enable **Intermediate craft** to include the starting ingredients and all fees for an available intermediate route.
+
+The browser remembers common-material valuation, intermediate-craft visibility, the craftable-only filter, and the sort column/direction. Searches are not saved. The sun/moon switch follows the system theme initially and saves a manual choice. Controls still work for the current visit if browser storage is unavailable.
 
 ## Price freshness
 
@@ -56,9 +60,11 @@ Vite’s relative `base: './'` supports the repository subpath without hard-codi
 ## Source and maintenance
 
 - `src/App.tsx`, `src/styles.css`: interface, preferences, and theme.
+- `src/MaterialArtisans.tsx`, `src/artisans.ts`, `src/data/artisans.json`: material pop-ups, convenience order, artisan recipe availability, and wiki/map sources.
 - `src/prices.ts`, `src/usePrices.ts`: price access, normalized schema, validation, cache, and React subscription.
 - `src/catalog.ts`, `src/data/`, `src/calculations.ts`: bundled materials/recipes, intermediate routes, and calculations.
 - `public/icons/`: bundled material icons, with original file links in `sources.json`.
+- `public/maps/artisans/`: bundled wiki location maps; original image links are recorded with each artisan.
 - `tests/`: deterministic calculation, normalization, cache, and connection-lifecycle coverage.
 
 See [PROJECT.md](PROJECT.md) for scope decisions and [AGENTS.md](AGENTS.md) for contributor working rules. Treat all browser assets and public repository history as public information; never add credentials or private data.
@@ -67,4 +73,4 @@ See [PROJECT.md](PROJECT.md) for scope decisions and [AGENTS.md](AGENTS.md) for 
 
 Recipes: [Guild Wars Wiki — Artisan](https://wiki.guildwars.com/wiki/Artisan#All_offered_materials), verified November 5, 2026. Prices: [Kamadan / GWToolbox](https://kamadan.gwtoolbox.com/). This independent fan tool is not affiliated with ArenaNet, NCSoft, or GWToolbox. Guild Wars names and game content belong to their respective owners.
 
-Material icons are copied from [Guild Wars Wiki](https://wiki.guildwars.com/) and served locally so wiki outages do not affect them. [Icon sources](public/icons/sources.json) records each original image and file page. ArenaNet game artwork remains the property of ArenaNet / NCSoft and is not covered by the wiki text’s GFDL license; see the [wiki copyright information](https://wiki.guildwars.com/wiki/Guild_Wars_Wiki:Copyrights).
+Material icons and artisan location maps are served locally. [Icon sources](public/icons/sources.json) and [artisan sources](src/data/artisans.json) record the original Guild Wars Wiki links. ArenaNet game artwork remains the property of ArenaNet / NCSoft and is not covered by the wiki text’s GFDL license; see the [wiki copyright information](https://wiki.guildwars.com/wiki/Guild_Wars_Wiki:Copyrights).

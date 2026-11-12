@@ -85,6 +85,7 @@ test('charcoal expansion includes its wood and fee; break-even is exactly zero',
   const rows = routesFor(deldrimor).map(r => evaluateRecipe(r, snapshot));
   assert.equal(rows[1].fee, 400);
   assert.equal(rows[1].ingredientValue, 350);
+  assert.deepEqual(rows[1].ingredients.map(i => [i.material, i.quantity]), [['iron', 10], ['wood', 10], ['dust', 5]]);
   assert.equal(rows[0].benefit, 350);
   assert.equal(rows[1].benefit, 350);
   const charcoal = recipes.find(r => r.output === 'charcoal')!;

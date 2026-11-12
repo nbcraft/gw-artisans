@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 — 2026-11-11
+
+- Open artisan details from craftable rare material icons and names throughout the app.
+- List 32 artisans by campaign with convenience rankings, wiki links, bundled location maps, and remembered campaign expansion choices.
+- Add a quantity calculator for 1–250 materials with total fees, ingredient requirements, and optional intermediate crafting.
+
 ## 0.2.1 — 2026-11-08
 
 - Add locally bundled wiki icons before material names in recipes, ingredients, intermediate-craft notes, and trader quotes.

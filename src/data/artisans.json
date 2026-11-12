@@ -1,0 +1,579 @@
+{
+  "source": "https://wiki.guildwars.com/wiki/Artisan",
+  "verifiedOn": "2026-11-11",
+  "verificationNotes": "Recipe availability initially checked against all 32 rows of the official Artisan campaign tables and the 27 accessible individual artisan recipe templates. Initial map sources matched 27 individually checked article map1 fields; infobox checks remain unavailable for Sennat Sen, Yunndae, Jormar, Pakasah, and Larmor. The convenience rankings and archived map revisions for Crafter Torgil and Artisan Orpah were selected on 2026-11-12.",
+  "artisans": [
+    {
+      "id": "artisan-daved",
+      "name": "Artisan Daved",
+      "campaign": "Prophecies",
+      "location": "Old Ascalon",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Artisan_Daved",
+      "mapUrl": "https://wiki.guildwars.com/images/e/e2/Artisan_Daved_location.jpg",
+      "materials": [
+        "linen",
+        "leather",
+        "parchment",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/artisan-daved.jpg"
+    },
+    {
+      "id": "artisan-kristan",
+      "name": "Artisan Kristan",
+      "campaign": "Prophecies",
+      "location": "Regent Valley",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Artisan_Kristan",
+      "mapUrl": "https://wiki.guildwars.com/images/8/87/Artisan_Kristan_map.jpg",
+      "materials": [
+        "linen",
+        "leather",
+        "charcoal",
+        "parchment",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/artisan-kristan.jpg"
+    },
+    {
+      "id": "artisan-rudger",
+      "name": "Artisan Rudger",
+      "campaign": "Prophecies",
+      "location": "Ascalon Foothills",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Artisan_Rudger",
+      "mapUrl": "https://wiki.guildwars.com/images/6/62/Artisan_Rudger_map.jpg",
+      "materials": [
+        "linen",
+        "leather",
+        "charcoal",
+        "spiritwood",
+        "steel",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/artisan-rudger.jpg"
+    },
+    {
+      "id": "crafter-torgil",
+      "name": "Crafter Torgil",
+      "campaign": "Prophecies",
+      "location": "Deldrimor Bowl",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Crafter_Torgil",
+      "mapUrl": "https://wiki.guildwars.com/images/archive/d/db/20091207200351%21Nicholas_the_Traveler_Deldrimor_Bowl_map.jpg",
+      "materials": [
+        "leather",
+        "charcoal",
+        "spiritwood",
+        "steel",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/crafter-torgil.jpg",
+      "mapSourceNote": "Archived map revision selected on 2026-11-12."
+    },
+    {
+      "id": "etham-the-artisan",
+      "name": "Etham the Artisan",
+      "campaign": "Prophecies",
+      "location": "Nebo Terrace",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Etham_the_Artisan",
+      "mapUrl": "https://wiki.guildwars.com/images/3/3a/Nebo_Village_map.jpg",
+      "materials": [
+        "linen",
+        "leather",
+        "charcoal",
+        "parchment",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/etham-the-artisan.jpg"
+    },
+    {
+      "id": "artisan-sivan",
+      "name": "Artisan Sivan",
+      "campaign": "Prophecies",
+      "location": "Talmark Wilderness",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Artisan_Sivan",
+      "mapUrl": "https://wiki.guildwars.com/images/3/3d/Artisan_Sivan_map.jpg",
+      "materials": [
+        "linen",
+        "leather",
+        "charcoal",
+        "parchment",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/artisan-sivan.jpg"
+    },
+    {
+      "id": "hadasha-the-artisan",
+      "name": "Hadasha the Artisan",
+      "campaign": "Prophecies",
+      "location": "Mamnoon Lagoon",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Hadasha_the_Artisan",
+      "mapUrl": "https://wiki.guildwars.com/images/f/f1/Hadasha_the_Artisan_map.jpg",
+      "materials": [
+        "linen",
+        "leather",
+        "charcoal",
+        "parchment",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/hadasha-the-artisan.jpg"
+    },
+    {
+      "id": "artisan-orpah",
+      "name": "Artisan Orpah",
+      "campaign": "Prophecies",
+      "location": "Tangle Root",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Artisan_Orpah",
+      "mapUrl": "https://wiki.guildwars.com/images/archive/3/34/20090908185748%21Nicholas_the_Traveler_Tangle_Root_map.jpg",
+      "materials": [
+        "damask",
+        "deldrimor-steel",
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/artisan-orpah.jpg",
+      "mapSourceNote": "Archived map revision selected on 2026-11-12."
+    },
+    {
+      "id": "nido-shabra",
+      "name": "Nido Shabra",
+      "campaign": "Prophecies",
+      "location": "The Arid Sea",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Nido_Shabra",
+      "mapUrl": "https://wiki.guildwars.com/images/2/2a/Nido_Shabra_map.jpg",
+      "materials": [
+        "damask",
+        "deldrimor-steel",
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/nido-shabra.jpg"
+    },
+    {
+      "id": "sennat-sen",
+      "name": "Sennat Sen",
+      "campaign": "Prophecies",
+      "location": "Salt Flats",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Sennat_Sen",
+      "mapUrl": "https://wiki.guildwars.com/images/4/45/Sennat_Sen_map.jpg",
+      "materials": [
+        "linen",
+        "leather",
+        "charcoal",
+        "spiritwood",
+        "steel",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/sennat-sen.jpg"
+    },
+    {
+      "id": "crafter-magnor",
+      "name": "Crafter Magnor",
+      "campaign": "Prophecies",
+      "location": "Talus Chute",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Crafter_Magnor",
+      "mapUrl": "https://wiki.guildwars.com/images/4/45/Crafter_Magnor_map.jpg",
+      "materials": [
+        "damask",
+        "deldrimor-steel",
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/crafter-magnor.jpg"
+    },
+    {
+      "id": "crafter-hagrem",
+      "name": "Crafter Hagrem",
+      "campaign": "Prophecies",
+      "location": "Mineral Springs",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Crafter_Hagrem",
+      "mapUrl": "https://wiki.guildwars.com/images/4/43/Crafter_Hagrem_map.jpg",
+      "materials": [
+        "damask",
+        "deldrimor-steel",
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Prophecies",
+      "mapPath": "maps/artisans/crafter-hagrem.jpg"
+    },
+    {
+      "id": "dae-chung",
+      "name": "Dae Chung",
+      "campaign": "Factions",
+      "location": "Panjiang Peninsula",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Dae_Chung",
+      "mapUrl": "https://wiki.guildwars.com/images/a/a8/Dae_Chung_map.jpg",
+      "materials": [
+        "leather",
+        "charcoal",
+        "parchment",
+        "spiritwood",
+        "steel",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Factions",
+      "mapPath": "maps/artisans/dae-chung.jpg"
+    },
+    {
+      "id": "shinichiro",
+      "name": "Shinichiro",
+      "campaign": "Factions",
+      "location": "Seitung Harbor",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Shinichiro",
+      "mapUrl": "https://wiki.guildwars.com/images/a/af/Shinichiro_map.jpg",
+      "materials": [
+        "leather",
+        "charcoal",
+        "parchment",
+        "spiritwood",
+        "steel",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Factions",
+      "mapPath": "maps/artisans/shinichiro.jpg"
+    },
+    {
+      "id": "takara-taji",
+      "name": "Takara Taji",
+      "campaign": "Factions",
+      "location": "Haiju Lagoon",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Takara_Taji",
+      "mapUrl": "https://wiki.guildwars.com/images/f/f1/Takara_Taji_map.jpg",
+      "materials": [
+        "leather",
+        "charcoal",
+        "parchment",
+        "spiritwood",
+        "steel",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Factions",
+      "mapPath": "maps/artisans/takara-taji.jpg"
+    },
+    {
+      "id": "xue-yi",
+      "name": "Xue Yi",
+      "campaign": "Factions",
+      "location": "Kaineng Center",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Xue_Yi",
+      "mapUrl": "https://wiki.guildwars.com/images/4/46/Xue_Yi_map.jpg",
+      "materials": [
+        "leather",
+        "charcoal",
+        "parchment",
+        "spiritwood",
+        "steel",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Factions",
+      "mapPath": "maps/artisans/xue-yi.jpg"
+    },
+    {
+      "id": "kainu",
+      "name": "Kainu",
+      "campaign": "Factions",
+      "location": "Wajjun Bazaar",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Kainu",
+      "mapUrl": "https://wiki.guildwars.com/images/f/f2/Kainu_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Factions",
+      "mapPath": "maps/artisans/kainu.jpg"
+    },
+    {
+      "id": "yunndae",
+      "name": "Yunndae",
+      "campaign": "Factions",
+      "location": "Wajjun Bazaar",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Yunndae",
+      "mapUrl": "https://wiki.guildwars.com/images/2/20/Yunndae_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Factions",
+      "mapPath": "maps/artisans/yunndae.jpg"
+    },
+    {
+      "id": "tsungfa",
+      "name": "Tsungfa",
+      "campaign": "Factions",
+      "location": "Wajjun Bazaar",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Tsungfa",
+      "mapUrl": "https://wiki.guildwars.com/images/b/b1/Tsungfa_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Factions",
+      "mapPath": "maps/artisans/tsungfa.jpg"
+    },
+    {
+      "id": "jakatu",
+      "name": "Jakatu",
+      "campaign": "Nightfall",
+      "location": "Issnur Isles",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Jakatu",
+      "mapUrl": "https://wiki.guildwars.com/images/3/3c/Jakatu_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "leather",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/jakatu.jpg"
+    },
+    {
+      "id": "matunbo",
+      "name": "Matunbo",
+      "campaign": "Nightfall",
+      "location": "Mehtani Keys",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Matunbo",
+      "mapUrl": "https://wiki.guildwars.com/images/5/59/Matunbo_map.jpg",
+      "materials": [
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/matunbo.jpg"
+    },
+    {
+      "id": "lormeh",
+      "name": "Lormeh",
+      "campaign": "Nightfall",
+      "location": "Marga Coast",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Lormeh",
+      "mapUrl": "https://wiki.guildwars.com/images/6/62/Lormeh_location.jpg",
+      "materials": [
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/lormeh.jpg"
+    },
+    {
+      "id": "enbe",
+      "name": "Enbe",
+      "campaign": "Nightfall",
+      "location": "Jahai Bluffs",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Enbe",
+      "mapUrl": "https://wiki.guildwars.com/images/0/0d/Enbe_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "leather",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/enbe.jpg"
+    },
+    {
+      "id": "jormar",
+      "name": "Jormar",
+      "campaign": "Nightfall",
+      "location": "Turai's Procession",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Jormar",
+      "mapUrl": "https://wiki.guildwars.com/images/e/e2/Nicholas_the_Traveler_Turai%27s_Procession_map.jpg",
+      "materials": [
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/jormar.jpg"
+    },
+    {
+      "id": "itenda",
+      "name": "Itenda",
+      "campaign": "Nightfall",
+      "location": "Barbarous Shore",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Itenda",
+      "mapUrl": "https://wiki.guildwars.com/images/e/ee/Itenda_map.jpg",
+      "materials": [
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/itenda.jpg"
+    },
+    {
+      "id": "pakasah",
+      "name": "Pakasah",
+      "campaign": "Nightfall",
+      "location": "Forum Highlands",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Pakasah",
+      "mapUrl": "https://wiki.guildwars.com/images/b/b5/Pakasah_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "leather",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/pakasah.jpg",
+      "recipeVerification": "All five offered recipes confirmed in-game on 2026-11-12."
+    },
+    {
+      "id": "larmor",
+      "name": "Larmor",
+      "campaign": "Nightfall",
+      "location": "Wilderness of Bahdza",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Larmor",
+      "mapUrl": "https://wiki.guildwars.com/images/8/82/Larmor_map.jpg",
+      "materials": [
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/larmor.jpg"
+    },
+    {
+      "id": "lilita",
+      "name": "Lilita",
+      "campaign": "Nightfall",
+      "location": "Garden of Seborhin",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Lilita",
+      "mapUrl": "https://wiki.guildwars.com/images/3/3d/Lilita_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "leather",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/lilita.jpg"
+    },
+    {
+      "id": "nerwar",
+      "name": "Nerwar",
+      "campaign": "Nightfall",
+      "location": "Garden of Seborhin",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Nerwar",
+      "mapUrl": "https://wiki.guildwars.com/images/5/57/Nerwar_map.jpg",
+      "materials": [
+        "elonian-leather",
+        "charcoal",
+        "vellum",
+        "spiritwood",
+        "glass",
+        "ink"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/nerwar.jpg"
+    },
+    {
+      "id": "khendi",
+      "name": "Khendi",
+      "campaign": "Nightfall",
+      "location": "Crystal Overlook",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Khendi",
+      "mapUrl": "https://wiki.guildwars.com/images/6/67/Khendi_map.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "elonian-leather",
+        "leather",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Nightfall",
+      "mapPath": "maps/artisans/khendi.jpg"
+    },
+    {
+      "id": "shalgrim-stonehart",
+      "name": "Shalgrim Stonehart",
+      "campaign": "Eye of the North",
+      "location": "Varajar Fells",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Shalgrim_Stonehart",
+      "mapUrl": "https://wiki.guildwars.com/images/7/77/Shalgrim_Stonehart_location.jpg",
+      "materials": [
+        "damask",
+        "silk",
+        "leather",
+        "charcoal",
+        "deldrimor-steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Eye_of_the_North",
+      "mapPath": "maps/artisans/shalgrim-stonehart.jpg"
+    },
+    {
+      "id": "shanda-ginkit",
+      "name": "Shanda Ginkit",
+      "campaign": "Eye of the North",
+      "location": "Arbor Bay",
+      "wikiUrl": "https://wiki.guildwars.com/wiki/Shanda_Ginkit",
+      "mapUrl": "https://wiki.guildwars.com/images/d/d2/Ventari%27s_sanctuary_map.jpg",
+      "materials": [
+        "vellum",
+        "spiritwood",
+        "glass",
+        "ink",
+        "steel"
+      ],
+      "recipeSource": "https://wiki.guildwars.com/wiki/Artisan#Eye_of_the_North",
+      "mapPath": "maps/artisans/shanda-ginkit.jpg"
+    }
+  ]
+}

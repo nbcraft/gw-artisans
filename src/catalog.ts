@@ -21,7 +21,7 @@ export interface RecipeRoute extends Recipe {
   via?: string;
 }
 
-// Expand one intermediate recipe, combining duplicate starting ingredients.
+// Expand one intermediate recipe in place, combining duplicate starting ingredients.
 // This keeps chained fees derived from the same recipes as the primary rows.
 export function routesFor(recipe: Recipe): RecipeRoute[] {
   const direct = { ...recipe, id: recipe.output };
@@ -30,10 +30,9 @@ export function routesFor(recipe: Recipe): RecipeRoute[] {
     const intermediate = recipes.find(r => r.output === ingredient.material);
     if (!intermediate) continue;
     const combined = new Map<string, number>();
-    const starting = [
-      ...recipe.ingredients.filter(i => i !== ingredient),
-      ...intermediate.ingredients.map(i => ({ ...i, quantity: i.quantity * ingredient.quantity })),
-    ];
+    const starting = recipe.ingredients.flatMap(i => i === ingredient
+      ? intermediate.ingredients.map(input => ({ ...input, quantity: input.quantity * ingredient.quantity }))
+      : [i]);
     for (const i of starting) combined.set(i.material, (combined.get(i.material) ?? 0) + i.quantity);
     routes.push({
       output: recipe.output,
